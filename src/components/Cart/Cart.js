@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
+import { Link } from "react-router-dom";
 import Product from './Product/Product';
 import ShoppingCart from 'react-icons/lib/fa/shopping-cart';
 
@@ -15,7 +15,7 @@ class Cart extends Component {
 
     this.toggleCartDetails = this.toggleCartDetails.bind( this );
   }
-  
+
   toggleCartDetails() {
     this.setState({ expanded: !this.state.expanded});
   }
@@ -28,7 +28,7 @@ class Cart extends Component {
     } = this.props;
 
     let swagComponents = swagInCart.map( swag => (
-      <Product 
+      <Product
         key={ swag.id }
         title={ swag.title }
         img={ swag.img }
@@ -37,8 +37,10 @@ class Cart extends Component {
     ));
 
     return (
-      this.state.expanded 
+      this.state.expanded
       ?
+
+
         <div id="Cart__containerExpanded">
           <div id="Cart__header" onClick={ this.toggleCartDetails }>
             <span> <ShoppingCart id="Cart__icon" /> { howMuchSwag } items: </span>
@@ -47,15 +49,19 @@ class Cart extends Component {
           <div id="Cart__details">
             { swagComponents }
           </div>
+            <Link to="/checkout" id="Cart_navLink">
           <div id="Cart__footer" onClick={ this.toggleCartDetails }>
             <span> Checkout </span>
           </div>
+          </Link>
         </div>
       :
         <div id="Cart__container" onClick={ this.toggleCartDetails }>
           <span> <ShoppingCart id="Cart__icon" /> { howMuchSwag } items: </span>
           <span> ${ total } </span>
         </div>
+
+
     )
   }
 }
